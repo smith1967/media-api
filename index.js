@@ -318,7 +318,61 @@ app.post('/api/media', async (req, res) => {
     })
   }
 })
-
+app.put('/api/media', async (req, res) => {
+  try {
+    if (!req.body.citizen_id || !req.body.media_name || !req.body.course_level) {
+      throw new Error('citizen_id, media_name, course_level is required')
+    }
+    //let row = await knex('media').where({citizen_id: req.body.citizen_id}).then(rows => rows[0])
+    //if (!row) {
+    let ids = await knex('media')
+      .where({
+        citizen_id: req.body.citizen_id,
+      })
+      .update({
+        course_level: req.body.course_level,
+        subject_type_id: req.body.subject_type_id,
+        major_id: req.body.major_id,
+        minor_id: req.body.minor_id,
+        subject_name: req.body.subject_name,
+        subject_code: req.body.subject_code,
+        media_type_id: req.body.media_type_id,
+        media_name: req.body.media_name,
+        amount: req.body.amount,
+        link_google: req.body.link_google,
+        e_training: req.body.e_training,
+      })
+    res.send({
+      ok: 1,
+      // id: ids[0]
+    })
+    //} 
+    // else {
+    //   await knex('media')
+    //     .where({citizen_id: req.body.citizen_id})
+    //     .update({
+    //       citizen_id: req.body.citizen_id,
+    //       course_level: req.body.course_level,
+    //       subject_type: req.body.subject_type,
+    //       major: req.body.major,
+    //       minor: req.body.minor,
+    //       subject_name: req.body.subject_name,
+    //       subject_code: req.body.subject_code,
+    //       media_type: req.body.media_type,
+    //       media_name: req.body.media_name,
+    //       amount: req.body.amount,
+    //       link_google: req.body.link_google,
+    //       e_training: req.body.e_training,
+    //     })
+    //   res.send({ ok: 1, id: row.id })
+    // }
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+})
 
 //app.use('/api/student',require('./api/student.js'))
 
