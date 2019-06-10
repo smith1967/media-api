@@ -2,9 +2,9 @@ module.exports = {
     options: {
         client: 'mysql',
         connection: {
-            host: '127.0.0.1',
-            user: 'root',
-            password: 'admin$cstc',
+            host: 'dve.cstc.ac.th',
+            user: 'media',
+            password: 'media1234@chontech',
             database: 'teacher_media',
             charset: 'utf8'
         }

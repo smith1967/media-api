@@ -41,7 +41,7 @@ app.get('/major/:subject_type_id', async (req, res) => {
       })
     } else {
       let rows = await knex('major')
-        .where('type_code', '=', req.params.subject_type_id)
+        .where('subject_type_id', '=', req.params.subject_type_id)
         .orderBy('major_id')
       res.send({
         ok: 1,
