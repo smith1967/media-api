@@ -1,0 +1,73 @@
+
+=====================
+teacher_id----
+citizen_id
+teacher_name 
+school_name
+academic   วิทยฐานะ
+depart 
+position 
+phone 
+line_id
+e-mail
+website
+================
+id----
+citizen_id
+course_level	ระดับหลักสูตร
+subject_type	ประเภทวิชา
+major 
+minor 
+subject_name 
+subject_code
+media_type	ประเภทสื่อการสอน
+media_name
+amount
+link_google 
+e_training   ทำได้ทันที / พัฒนาต่อ
+
+===========================
+localhost:7000/api/teacher
+{
+	"citizen_id": "123456789098",
+	"teacher_name": "aaaaaa",
+	"school_name": "aaaaaaaaaaa",
+	"academic": "aaaa",
+	"depart": "aaaaaaaaaaa",
+	"position": "aaaaaaaaaa",
+	"phone": "aaaa",
+	"line_id": "aaaaaa",
+	"e_mail": "aaaaa",
+	"website": "aaaaaaaaaa"
+}
+=====================
+localhost:7000/api/media
+{
+    "citizen_id": "123456789098",
+    "course_level": "ปวช.",
+    "subject_type": "ฟฟฟฟฟ",
+    "major": "ฟฟฟ",
+    "minor": "ฟฟฟฟฟ",
+    "subject_name": "ฟฟฟฟฟ",
+    "subject_code": "2000-1101",
+    "media_type": "sssssss",
+    "media_name": "ssssss",
+    "amount": "2",
+    "link_google": "ddddddd",
+    "e_training": "ทันที"   
+}
+=============================
+localhost:7000/subject_type
+
+localhost:7000/major/1
+	app.get('/major/:subject_type_id'
+
+localhost:7000/minor/2101
+	app.get('/minor/:major_id'
+
+localhost:7000/media_type
+
+localhost:7000/school
+
+
+
