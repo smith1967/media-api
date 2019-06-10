@@ -346,32 +346,29 @@ app.put('/api/media', async (req, res) => {
       ok: 1,
       // id: ids[0]
     })
-    //} 
-    // else {
-    //   await knex('media')
-    //     .where({citizen_id: req.body.citizen_id})
-    //     .update({
-    //       citizen_id: req.body.citizen_id,
-    //       course_level: req.body.course_level,
-    //       subject_type: req.body.subject_type,
-    //       major: req.body.major,
-    //       minor: req.body.minor,
-    //       subject_name: req.body.subject_name,
-    //       subject_code: req.body.subject_code,
-    //       media_type: req.body.media_type,
-    //       media_name: req.body.media_name,
-    //       amount: req.body.amount,
-    //       link_google: req.body.link_google,
-    //       e_training: req.body.e_training,
-    //     })
-    //   res.send({ ok: 1, id: row.id })
-    // }
   } catch (e) {
     res.send({
       ok: 0,
       error: e.message
     })
   }
+})
+
+app.delete('/api/media/:id', async (req, res) => {
+  try {
+    await knex('media').where({
+      id: req.params.id
+    }).del()
+    res.send({
+      ok: 1,
+    })
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+
 })
 
 //app.use('/api/student',require('./api/student.js'))
