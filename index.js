@@ -65,7 +65,7 @@ app.get('/minor/:major_id', async (req, res) => {
         .orderBy('minor_id')
       res.send({
         ok: 1,
-        major: rows,
+        minor: rows,
       })
     } else {
       rows = await knex('minor')
@@ -73,7 +73,7 @@ app.get('/minor/:major_id', async (req, res) => {
         .orderBy('minor_id')
       res.send({
         ok: 1,
-        major: rows,
+        minor: rows,
       })
     }
   } catch (e) {
