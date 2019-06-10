@@ -284,6 +284,7 @@ app.post('/api/media', async (req, res) => {
       media_type_id: req.body.media_type_id,
       media_name: req.body.media_name,
       amount: req.body.amount,
+      note: req.body.note,
       link_google: req.body.link_google,
       e_training: req.body.e_training,
     })
@@ -339,6 +340,7 @@ app.put('/api/media', async (req, res) => {
         media_type_id: req.body.media_type_id,
         media_name: req.body.media_name,
         amount: req.body.amount,
+        note: req.body.note,
         link_google: req.body.link_google,
         e_training: req.body.e_training,
       })
