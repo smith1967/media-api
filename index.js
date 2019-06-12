@@ -119,6 +119,23 @@ app.get('/school', async (req, res) => {
   }
 })
 
+app.get('/school/items', async (req, res) => {
+  try {
+    let rows = await knex('school')
+      .select('school_id', 'school_name')
+      .orderBy('school_id')
+    res.send({
+      ok: 1,
+      school: rows,
+    })
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+})
+
 //localhost:7000/teacher
 app.get('/teacher', async (req, res) => {
   try {
@@ -211,6 +228,7 @@ app.post('/login', async (req, res) => {
 })
 
 //localhost:7000/api/teacher
+
 app.post('/api/teacher', async (req, res) => {
   try {
     if (!req.body.citizen_id || !req.body.teacher_name || !req.body.school_name) {
@@ -326,7 +344,7 @@ app.put('/api/media', async (req, res) => {
     }
     //let row = await knex('media').where({citizen_id: req.body.citizen_id}).then(rows => rows[0])
     //if (!row) {
-    let ids = await knex('media')
+    let result = await knex('media')
       .where({
         citizen_id: req.body.citizen_id,
       })
@@ -346,8 +364,78 @@ app.put('/api/media', async (req, res) => {
       })
     res.send({
       ok: 1,
+      num_rows: result.updatedRows || 0
       // id: ids[0]
     })
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+})
+
+app.post('/api/signin', async (req, res) => {
+  try {
+    if (!req.body.citizen_id || !req.body.fname || !req.body.school_id) {
+      throw new Error('ต้องกรอกรหัสบัตรปรชาชน ชือ นามสกุล และสถานศึกษา')
+    }
+    let row = await knex('teacher').where({
+      citizen_id: req.body.citizen_id
+    }).then(rows => rows[0])
+    if (!row) {
+      let ids = await knex('teacher').insert({
+        citizen_id: req.body.citizen_id,
+        fname: req.body.fname,
+        school_id: req.body.school_id,
+        academic: req.body.academic,
+        depart: req.body.depart,
+        position: req.body.position,
+        phone: req.body.phone,
+        line_id: req.body.line_id,
+        e_mail: req.body.e_mail,
+        website: req.body.website,
+      })
+      res.send({
+        ok: 1,
+        id: ids[0]
+      })
+    }
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+})
+app.put('/api/signin/', async (req, res) => {
+  try {
+    if (!req.body.citizen_id || !req.body.fname || !req.body.school_id) {
+      throw new Error('ต้องกรอกรหัสบัตรปรชาชน ชือ นามสกุล และสถานศึกษา')
+    }
+    let row = await knex('teacher').where({
+      citizen_id: req.body.citizen_id
+    }).then(rows => rows[0])
+    if (!row) {
+      let ids = await knex('teacher').update({
+        citizen_id: req.body.citizen_id,
+        fname: req.body.fname,
+        school_id: req.body.school_id,
+        academic: req.body.academic,
+        depart: req.body.depart,
+        position: req.body.position,
+        phone: req.body.phone,
+        line_id: req.body.line_id,
+        e_mail: req.body.e_mail,
+        website: req.body.website,
+      }).where({
+        id: req.body.citizen_id
+      })
+      res.send({
+        ok: 1,
+        id: ids[0]
+      })
+    }
   } catch (e) {
     res.send({
       ok: 0,
