@@ -365,8 +365,8 @@ app.post('/api/media', async (req, res) => {
 })
 app.put('/api/media', async (req, res) => {
   try {
-    if (!req.body.citizen_id || !req.body.media_name || !req.body.course_level) {
-      throw new Error('citizen_id, media_name, course_level is required')
+    if (!req.body.id || !req.body.media_name || !req.body.course_level) {
+      throw new Error('id, media_name, course_level is required')
     }
     //let row = await knex('media').where({citizen_id: req.body.citizen_id}).then(rows => rows[0])
     //if (!row) {
