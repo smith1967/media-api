@@ -206,14 +206,40 @@ app.get('/mediaAll/', async (req, res) => {
 // user:''  pass:''
 app.post('/login', async (req, res) => {
   try {
-    let row = await knex('teacher')
+    let row = await knex('user')
+      .select('email', 'citizen_id', 'fname', 'lname')
       .where({
-        citizen_id: req.body.user,
-        password: req.body.pass
+        email: req.body.email,
+        password: knex.raw("MD5('" + req.body.password + "')")
       })
       .then(rows => rows[0])
     if (!row) {
-      throw new Error('user/pass incorrect')
+      throw new Error('อีเมล์หรือรหัสผ่าน ไม่ถูกต้อง')
+    }
+    res.send({
+      ok: 1,
+      user: row
+    })
+  } catch (e) {
+    res.send({
+      ok: 0,
+      error: e.message
+    })
+  }
+})
+
+app.get('/user/:citizen_id', async (req, res) => {
+  try {
+    let row = await knex('user')
+      .select('email', 'citizen_id', 'fname', 'lname', 'phone', 'line_id', 'website')
+      .where({
+        citizen_id: req.params.citizen_id
+        // email: req.body.email,
+        // password: knex.raw("MD5('" + req.body.password + "')")
+      })
+      .then(rows => rows[0])
+    if (!row) {
+      throw new Error('อีเมล์หรือรหัสผ่าน ไม่ถูกต้อง')
     }
     res.send({
       ok: 1,
