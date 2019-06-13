@@ -378,23 +378,25 @@ app.put('/api/media', async (req, res) => {
 app.post('/api/signin', async (req, res) => {
   try {
     if (!req.body.citizen_id || !req.body.fname || !req.body.school_id) {
-      throw new Error('ต้องกรอกรหัสบัตรปรชาชน ชือ นามสกุล และสถานศึกษา')
+      throw new Error('ต้องกรอกรหัสบัตรประชาชน ชือ นามสกุล และสถานศึกษา')
     }
-    let row = await knex('teacher').where({
+    let row = await knex('user').where({
       citizen_id: req.body.citizen_id
     }).then(rows => rows[0])
     if (!row) {
-      let ids = await knex('teacher').insert({
+      let ids = await knex('user').insert({
         citizen_id: req.body.citizen_id,
         fname: req.body.fname,
+        lname: req.body.lname,
         school_id: req.body.school_id,
-        academic: req.body.academic,
-        depart: req.body.depart,
-        position: req.body.position,
-        phone: req.body.phone,
-        line_id: req.body.line_id,
-        e_mail: req.body.e_mail,
-        website: req.body.website,
+        password: knex.raw('MD5("' + req.body.password + '")'),
+        // academic: req.body.academic,
+        // depart: req.body.depart,
+        // position: req.body.position,
+        // phone: req.body.phone,
+        // line_id: req.body.line_id,
+        email: req.body.email
+        // website: req.body.website,
       })
       res.send({
         ok: 1,
