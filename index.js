@@ -372,7 +372,7 @@ app.put('/api/media', async (req, res) => {
     //if (!row) {
     let result = await knex('media')
       .where({
-        citizen_id: req.body.citizen_id,
+        citizen_id: req.body.id,
       })
       .update({
         course_level: req.body.course_level,
