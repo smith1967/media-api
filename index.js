@@ -160,7 +160,7 @@ app.get('/media/:citizen_id', async (req, res) => {
     if (req.params.citizen_id == 'all') {
       let rows = await knex('media')
         // .where('citizen_id', '=', req.params.citizen_id)
-        .orderBy('media_type_id')
+        .orderBy('id')
       res.send({
         ok: 1,
         media: rows,
@@ -168,7 +168,7 @@ app.get('/media/:citizen_id', async (req, res) => {
     } else {
       let rows = await knex('media')
         .where('citizen_id', '=', req.params.citizen_id)
-        .orderBy('media_type_id')
+        .orderBy('id')
       res.send({
         ok: 1,
         media: rows,
