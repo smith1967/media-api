@@ -180,7 +180,7 @@ app.get('/media/:citizen_id', async (req, res) => {
         .select('media.*', 'subject_type.subject_type_name', 'media_type.media_type_name', 'major.major_name', 'minor.minor_name')
         .join('media_type', 'media.media_type_id', 'media_type.media_type_id')
         .join('subject_type', 'media.subject_type_id', 'subject_type.subject_type_id')
-        .join('mojor', 'media.mojor_id', 'mojor.mojor_id')
+        .join('mojor', 'media.major_id', 'mojor.major_id')
         .join('minor', 'media.minor_id', 'minor.minor_id')
         .where('citizen_id', '=', req.params.citizen_id)
         .orderBy('id')
