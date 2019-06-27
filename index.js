@@ -8,6 +8,11 @@ const knex = require('knex')(config.options);
 
 app.use(bodyParser.json())
 app.use(cors())
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "cstc.ac.th");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.get('/', (req, res) => res.send(req.query))
 
 //localhost:7000/subject_type
@@ -159,6 +164,11 @@ app.get('/media/:citizen_id', async (req, res) => {
   try {
     if (req.params.citizen_id == 'all') {
       let rows = await knex('media')
+        .select('media.*', 'subject_type.subject_type_name', 'media_type.media_type_name', 'major.major_name', 'minor.minor_name')
+        .join('media_type', 'media.media_type_id', 'media_type.media_type_id')
+        .join('subject_type', 'media.subject_type_id', 'subject_type.subject_type_id')
+        .join('major', 'media.major_id', 'major.major_id')
+        .join('minor', 'media.minor_id', 'minor.minor_id')
         // .where('citizen_id', '=', req.params.citizen_id)
         .orderBy('id')
       res.send({
@@ -167,6 +177,11 @@ app.get('/media/:citizen_id', async (req, res) => {
       })
     } else {
       let rows = await knex('media')
+        .select('media.*', 'subject_type.subject_type_name', 'media_type.media_type_name', 'major.major_name', 'minor.minor_name')
+        .join('media_type', 'media.media_type_id', 'media_type.media_type_id')
+        .join('subject_type', 'media.subject_type_id', 'subject_type.subject_type_id')
+        .join('mojor', 'media.mojor_id', 'mojor.mojor_id')
+        .join('minor', 'media.minor_id', 'minor.minor_id')
         .where('citizen_id', '=', req.params.citizen_id)
         .orderBy('id')
       res.send({
